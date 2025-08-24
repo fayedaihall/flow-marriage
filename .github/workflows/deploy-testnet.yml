@@ -1,0 +1,43 @@
+name: Deploy Marriage to Flow Testnet
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Flow CLI
+        run: |
+          bash -lc "curl -L https://raw.githubusercontent.com/onflow/flow-cli/master/install.sh | bash"
+          echo "${HOME}/.local/bin" >> $GITHUB_PATH
+
+      - name: Set env
+        env:
+          TESTNET_ADDRESS: ${{ secrets.TESTNET_ADDRESS }}
+          TESTNET_PRIVATE_KEY: ${{ secrets.TESTNET_PRIVATE_KEY }}
+        run: |
+          if [ -z "${TESTNET_ADDRESS}" ] || [ -z "${TESTNET_PRIVATE_KEY}" ]; then
+            echo "Missing TESTNET_ADDRESS or TESTNET_PRIVATE_KEY secrets" >&2
+            exit 1
+          fi
+          echo "TESTNET_ADDRESS=${TESTNET_ADDRESS}" >> $GITHUB_ENV
+          echo "TESTNET_PRIVATE_KEY=${TESTNET_PRIVATE_KEY}" >> $GITHUB_ENV
+
+      - name: Show Flow version
+        run: flow version | cat
+
+      - name: Deploy to Testnet
+        working-directory: .
+        env:
+          TESTNET_ADDRESS: ${{ env.TESTNET_ADDRESS }}
+          TESTNET_PRIVATE_KEY: ${{ env.TESTNET_PRIVATE_KEY }}
+        run: flow project deploy --network testnet | cat
