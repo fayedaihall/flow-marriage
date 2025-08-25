@@ -36,11 +36,11 @@ export function CeremonyRoom({ ceremonyId, partner1Name, partner2Name }: Ceremon
   const [processingStep, setProcessingStep] = useState<'setup' | 'minting' | 'complete'>('setup')
   const [certificateData, setCertificateData] = useState<any>(null)
   const [ceremonyDetails, setCeremonyDetails] = useState({
-    date: '',
     vows: '',
     location: '',
     officiant: ''
   })
+  const [marriageDate, setMarriageDate] = useState<string>('')
 
   // Simulated real-time connection (in real app, this would be WebSocket)
   useEffect(() => {
@@ -70,6 +70,10 @@ export function CeremonyRoom({ ceremonyId, partner1Name, partner2Name }: Ceremon
       return
     }
 
+    // Capture the exact moment of saying "I Do"
+    const ceremonyTimestamp = new Date().toISOString().split('T')[0]
+    setMarriageDate(ceremonyTimestamp)
+
     setIsProcessing(true)
     setProcessingStep('setup')
     try {
@@ -95,7 +99,7 @@ export function CeremonyRoom({ ceremonyId, partner1Name, partner2Name }: Ceremon
         {
           spouseAName: partner1Name || 'Partner A',
           spouseBName: partner2Name || 'Partner B',
-          weddingDate: ceremonyDetails.date || new Date().toISOString().split('T')[0],
+          weddingDate: ceremonyTimestamp,
           vows: ceremonyDetails.vows || 'Till death do us part, and beyond into the blockchain',
           location: ceremonyDetails.location || 'Digital Ceremony Room',
           uri: `https://flowmarriage.app/certificate/${ceremonyId}`,
@@ -113,7 +117,7 @@ export function CeremonyRoom({ ceremonyId, partner1Name, partner2Name }: Ceremon
         tokenId: result?.events?.[0]?.data?.tokenId || '1',
         spouseAName: partner1Name || 'Partner A',
         spouseBName: partner2Name || 'Partner B',
-        weddingDate: ceremonyDetails.date || new Date().toISOString().split('T')[0],
+        weddingDate: ceremonyTimestamp,
         location: ceremonyDetails.location || 'Digital Ceremony Room',
         vows: ceremonyDetails.vows || 'Till death do us part, and beyond into the blockchain',
         officiant: ceremonyDetails.officiant || 'Rev. Flow',
@@ -272,20 +276,7 @@ export function CeremonyRoom({ ceremonyId, partner1Name, partner2Name }: Ceremon
               <p className="text-gray-600">Fill this out together - both of you can edit in real-time</p>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-6 mb-8">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2 flex items-center">
-                  <Clock className="w-4 h-4 mr-2" />
-                  Wedding Date
-                </label>
-                <input
-                  type="date"
-                  value={ceremonyDetails.date}
-                  onChange={(e) => handleInputChange('date', e.target.value)}
-                  className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-rose-500 focus:border-transparent bg-white/50 backdrop-blur-sm"
-                />
-              </div>
-
+            <div className="mb-8">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2 flex items-center">
                   <MapPin className="w-4 h-4 mr-2" />
@@ -363,9 +354,20 @@ export function CeremonyRoom({ ceremonyId, partner1Name, partner2Name }: Ceremon
               Ready to say "I Do"?
             </h2>
 
-            <p className="text-lg text-gray-600 mb-8">
-              When both of you click the button below, your marriage will be recorded on the blockchain forever.
-            </p>
+            <div className="text-lg text-gray-600 mb-8">
+              <p className="mb-4">
+                When both of you click the button below, your marriage will be recorded on the blockchain forever.
+              </p>
+              <div className="bg-blue-50 border border-blue-200 rounded-xl p-4">
+                <div className="flex items-center justify-center space-x-2 text-blue-700 mb-2">
+                  <Clock className="w-5 h-5" />
+                  <span className="font-medium">Perfect Timing</span>
+                </div>
+                <p className="text-blue-600 text-sm">
+                  Your marriage date will be captured at the exact moment you both say "I Do!" - {new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
+                </p>
+              </div>
+            </div>
 
             {/* Countdown could go here */}
             <motion.button
