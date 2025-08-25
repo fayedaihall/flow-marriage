@@ -23,7 +23,11 @@ export function useFlow() {
     setUser(FlowService.getCurrentUser())
     setIsLoading(false)
 
-    return unsubscribe
+    return () => {
+      if (typeof unsubscribe === 'function') {
+        unsubscribe()
+      }
+    }
   }, [])
 
   const logIn = async () => {
