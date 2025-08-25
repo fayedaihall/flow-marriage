@@ -11,23 +11,23 @@
 	"accounts": {
 		"alic": {
 			"address": "f3fcd2c1a78f5eee",
-			"key": "a10f8ef9ccbc682d0cb91a7c80354fa4e8b4af4a30fa5e6492b7a0f821a80135"
+			"key": "$FLOW_ALIC_PRIVATE_KEY"
 		},
 		"bob": {
 			"address": "179b6b1cb6755e31",
-			"key": "99b0c086e97bd1d42362e614ec1902c284d6a69875548e95237b8775ebbb0de5"
+			"key": "$FLOW_BOB_PRIVATE_KEY"
 		},
 		"deployer": {
 			"address": "f8d6e0586b0a20c7",
-			"key": "2619878f0e2ff438d17551c80368cebd428f71a9b13bf6c49391e6b806ce5b26"
+			"key": "$FLOW_DEPLOYER_PRIVATE_KEY"
 		},
 		"emulator-account": {
 			"address": "f8d6e0586b0a20c7",
-			"key": "2619878f0e2ff438d17551c80368cebd428f71a9b13bf6c49391e6b806ce5b26"
+			"key": "$FLOW_EMULATOR_PRIVATE_KEY"
 		},
 		"mainnet-admin": {
 			"address": "123456789abcdef0",
-			"key": "0000000000000000000000000000000000000000000000000000000000000000"
+			"key": "$FLOW_MAINNET_PRIVATE_KEY"
 		},
 		"testnet-admin": {
 			"address": "86a4bf5530e0e76e",
@@ -36,7 +36,7 @@
 				"index": 0,
 				"signatureAlgorithm": "ECDSA_secp256k1",
 				"hashAlgorithm": "SHA2_256",
-				"privateKey": "4cf32c38ce7f7073d3c8d83198413e1697fbd82f6445187933f6a0441eb59cae"
+				"privateKey": "$FLOW_TESTNET_PRIVATE_KEY"
 			}
 		}
 	},

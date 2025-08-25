@@ -139,3 +139,42 @@ The workflow will install Flow CLI and run `flow project deploy --network testne
 - `Minter.mintPair` mints two certificates in one call with identical metadata
 - To integrate with marketplace/wallet standards, you can extend `NonFungibleToken`/`MetadataViews` later
 # flow-marriage
+
+## 🔐 Security Setup (Updated)
+
+**IMPORTANT**: This project now uses environment variables for private keys to prevent accidentally committing secrets to git.
+
+### Environment Variables
+
+1. **Copy the example file**:
+   ```bash
+   cp .env.example .env
+   ```
+
+2. **Edit `.env` with your actual private keys**:
+   ```bash
+   # Testnet account
+   FLOW_TESTNET_PRIVATE_KEY=your_testnet_private_key_here
+   
+   # Emulator accounts  
+   FLOW_DEPLOYER_PRIVATE_KEY=your_deployer_private_key_here
+   FLOW_EMULATOR_PRIVATE_KEY=your_emulator_private_key_here
+   ```
+
+3. **Load environment variables before Flow commands**:
+   ```bash
+   source .env
+   flow project deploy --network testnet
+   ```
+
+### Security Features
+- ✅ Private keys stored in environment variables
+- ✅ `.env` file excluded from git via `.gitignore`
+- ✅ `.env.example` provided as template
+- ✅ No private keys committed to repository
+
+## 🚀 Live Testnet Deployment
+
+**Contract Address**: `0x86a4bf5530e0e76e`
+**Network**: Flow Testnet
+**Frontend**: Configured for testnet (see `marriage-dapp/` directory)
