@@ -30,8 +30,14 @@
 			"key": "0000000000000000000000000000000000000000000000000000000000000000"
 		},
 		"testnet-admin": {
-			"address": "123456789abcdef0",
-			"key": "0000000000000000000000000000000000000000000000000000000000000000"
+			"address": "86a4bf5530e0e76e",
+			"key": {
+				"type": "hex",
+				"index": 0,
+				"signatureAlgorithm": "ECDSA_secp256k1",
+				"hashAlgorithm": "SHA2_256",
+				"privateKey": "4cf32c38ce7f7073d3c8d83198413e1697fbd82f6445187933f6a0441eb59cae"
+			}
 		}
 	},
 	"deployments": {

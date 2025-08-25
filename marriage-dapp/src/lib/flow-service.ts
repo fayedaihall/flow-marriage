@@ -2,7 +2,7 @@ import * as fcl from "@onflow/fcl"
 import * as t from "@onflow/types"
 
 // Update this with your actual deployed contract address
-const MARRIAGE_CONTRACT_ADDRESS = "0xf8d6e0586b0a20c7" // Your emulator address
+const MARRIAGE_CONTRACT_ADDRESS = "0x86a4bf5530e0e76e" // Your testnet address
 
 // Cadence scripts for reading data
 const GET_COLLECTION_IDS = `
@@ -123,9 +123,9 @@ export class FlowService {
   // Initialize FCL configuration
   static init() {
     fcl.config({
-      "accessNode.api": "http://127.0.0.1:8888", // Emulator REST API
-      "discovery.wallet": "http://127.0.0.1:8701/fcl/authn", // Dev Wallet
-      "flow.network": "emulator"
+      "accessNode.api": "https://rest-testnet.onflow.org", // Testnet REST API
+      "discovery.wallet": "https://fcl-discovery.onflow.org/testnet/authn", // Testnet Wallet Discovery
+      "flow.network": "testnet"
     })
   }
 
